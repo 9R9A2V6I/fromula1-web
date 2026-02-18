@@ -1,0 +1,12 @@
+[
+  { "username": "ops.lead", "password": "Orbit#2024", "role": "admin" },
+  { "username": "campaign.chief", "password": "Pilot@321", "role": "manager" },
+  { "username": "payments", "password": "Vault!908", "role": "finance" },
+  { "username": "creator.ops", "password": "Grid#776", "role": "operator" },
+  { "username": "analyst.north", "password": "Pulse$555", "role": "analyst" },
+  { "username": "analyst.south", "password": "Pulse$556", "role": "analyst" },
+  { "username": "qa.studio", "password": "Proof*112", "role": "qa" },
+  { "username": "brandsquad", "password": "Deck@440", "role": "brand" },
+  { "username": "agency.portal", "password": "Relay!220", "role": "partner" },
+  { "username": "cx.first", "password": "Care#003", "role": "support" }
+]

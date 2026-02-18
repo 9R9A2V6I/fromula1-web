@@ -1,17 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 @import "tailwindcss";
 
+/* =======================
+   Font Face (Local Font)
+======================= */
+@font-face {
+  font-family: "Brier";
+  src: url("/Brier_Trial/Brier-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =======================
+   Root Variables
+======================= */
 :root {
+  --font-mona: "Mona Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-bree: "Bree Serif", serif;
+  --font-bitcount: "Bitcount Prop Single", monospace;
+  --font-brier: "Brier", serif;
+  --font-indie: "Indie Flower", cursive;
+
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* =======================
+   Tailwind Theme Mapping
+======================= */
+@theme {
+  --font-sans: var(--font-mona);
+  --font-serif: var(--font-bree);
+  --font-mono: var(--font-bitcount);
+  --font-indie: var(--font-indie);
+
+  --font-brier: var(--font-brier);
+  --font-bitcount: var(--font-bitcount);
 }
 
+/* =======================
+   Dark Mode
+======================= */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -22,5 +55,119 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  scroll-behavior: none;
+   -ms-overflow-style: none;  
+  scrollbar-width: none;  
+  
+ 
+  overscroll-behavior-y: none; 
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+
+
+
+
+
+.reveal-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px; /* Adjust to your image size */
+  aspect-ratio: 16 / 9; /* Adjust to your image aspect ratio */
+  overflow: hidden;
+  cursor: col-resize; /* Shows the user they can interact */
+  
+  /* Default mask position (fully hidden or fully shown based on preference) */
+  --mask-x: 100%; 
+}
+
+.image-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none; /* Let clicks pass through to container */
+}
+
+/* The Base Image (Face) is always visible at the bottom */
+.base {
+  z-index: 1;
+}
+
+/* The Overlay Wrapper controls the visibility of the Helmet */
+.overlay-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  
+  /* This creates the cut. 
+     polygon(x 0, 100% 0, 100% 100%, x 100%)
+     This means the image draws from the Mouse X to the Right Edge.
+  */
+  clip-path: polygon(var(--mask-x) 0, 100% 0, 100% 100%, var(--mask-x) 100%);
+  
+  /* Make the movement instant when hovering, but smooth when leaving */
+  transition: clip-path 0s; 
+  will-change: clip-path;
+}
+
+/* Optional: Smooth reset when mouse leaves */
+.reveal-container:not(.active) .overlay-wrapper {
+  transition: clip-path 0.5s ease-out;
+  /* Reset mask to hide helmet when not hovering */
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+
+/* Optional: The white line separating the two */
+.separator-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--mask-x); /* Follows the mouse */
+  width: 2px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 10px rgba(255,255,255,0.5);
+  transform: translateX(-50%); /* Center on the cursor */
+}
+
+/* Reset transition when not hovering */
+.group:not(.active) .will-change-\[clip-path\] {
+  transition: clip-path 0.5s ease-out !important;
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%) !important;
+}
+
+
+.small_navabr_tab{
+  background: rgba(13, 13, 13, 0.45);
+/* border-radius: 16px; */
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(4.5px);
+-webkit-backdrop-filter: blur(4.5px);
+/* border: 1px solid rgba(13, 13, 13, 0.3); */
+
+}
+
+
+.maskFotterImg {
+  -webkit-mask-image: url("/images/bg-green-footer.svg");
+  mask-image: url("/images/bg-green-footer.svg");
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  -webkit-mask-size: contain;
+  mask-size: contain;
+
+  -webkit-mask-position: center;
+  mask-position: center;
 }

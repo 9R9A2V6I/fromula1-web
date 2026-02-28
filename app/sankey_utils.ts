@@ -1,4 +1,4 @@
-import { FunnelStage } from "@/app/types/lead_converstion_funnel";
+import { FunnelStage } from "@/app/type";
 
 export interface SankeyNode {
   id: string;

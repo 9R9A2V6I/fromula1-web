@@ -1,8 +1,16 @@
+  "use client";
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import type { MotionValue } from "framer-motion";
 import Image from "next/image";
 
-const imagesData = [
+type ImageData = {
+  src: string;
+  yOffset: number;
+  className: string;
+};
+
+const imagesData: ImageData[] = [
   {
     src: "/images/dewald_hero_section.jpg",
     yOffset: 0, // Floats higher
@@ -35,7 +43,12 @@ const imagesData = [
   },
 ];
 
-const MovingImage = ({ data, index, scrollYProgress, totalImages }) => {
+const MovingImage: React.FC<{
+  data: ImageData;
+  index: number;
+  scrollYProgress: MotionValue<number>;
+  totalImages: number;
+}> = ({ data, index, scrollYProgress, totalImages }) => {
   // Stagger logic: precise timing for "One by One" feel
   const stepSize = 1 / totalImages; 
   const start = stepSize * index;      
@@ -78,7 +91,7 @@ const MovingImage = ({ data, index, scrollYProgress, totalImages }) => {
 };
 
 function JourneyGallery() {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],

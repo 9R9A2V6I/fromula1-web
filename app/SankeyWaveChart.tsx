@@ -13,11 +13,7 @@ interface MyNode extends d3Sankey.SankeyNode<SankeyNode, SankeyLink> {
   value: number;
 }
 
-interface MyLink extends d3Sankey.SankeyLink<SankeyNode, SankeyLink> {
-  source: MyNode;
-  target: MyNode;
-  value: number;
-}
+type MyLink = d3Sankey.SankeyLink<SankeyNode, SankeyLink> & { width?: number };
 
 export default function SankeyWaveChart() {
   // 1. MAINTAIN HEIGHT FOR SPACING
@@ -63,11 +59,11 @@ export default function SankeyWaveChart() {
                 key={`grad-${i}`}
                 id={`grad-link-${i}`}
                 gradientUnits="userSpaceOnUse"
-                x1={link.source.x1}
-                x2={link.target.x0}
+                x1={(link.source as MyNode).x1 ?? 0}
+                x2={(link.target as MyNode).x0 ?? 0}
               >
-                <stop offset="0%" stopColor={link.source.color} stopOpacity={0.2} />
-                <stop offset="100%" stopColor={link.target.color} stopOpacity={0.2} />
+                <stop offset="0%" stopColor={(link.source as MyNode).color} stopOpacity={0.2} />
+                <stop offset="100%" stopColor={(link.target as MyNode).color} stopOpacity={0.2} />
               </linearGradient>
             ))}
           </defs>

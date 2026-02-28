@@ -11,11 +11,11 @@ const LandoHero = () => {
   const mouseX = useSpring(x, { stiffness: 50, damping: 20 });
   const mouseY = useSpring(y, { stiffness: 50, damping: 20 });
 
-  function handleMouseMove({ currentTarget, clientX, clientY }) {
-    const { left, top, width, height } = currentTarget.getBoundingClientRect();
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
     // Calculate normalized mouse position (-1 to 1)
-    const xPos = (clientX - left) / width - 0.5;
-    const yPos = (clientY - top) / height - 0.5;
+    const xPos = (e.clientX - left) / width - 0.5;
+    const yPos = (e.clientY - top) / height - 0.5;
     
     x.set(xPos);
     y.set(yPos);

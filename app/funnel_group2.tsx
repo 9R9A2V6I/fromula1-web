@@ -144,8 +144,8 @@ export default function SankeyWaveChart({ currentData }: Props) {
                   key={`grad-${i}`}
                   id={`link-grad-${i}`}
                   gradientUnits="userSpaceOnUse"
-                  x1={link.source.x1}
-                  x2={link.target.x0}
+                  x1={(link.source as MyNode).x1 ?? 0}
+                  x2={(link.target as MyNode).x0 ?? 0}
                 >
                   <stop offset="0%" stopColor={(link.source as MyNode).color} stopOpacity={0.35} />
                   <stop offset="100%" stopColor={(link.target as MyNode).color} stopOpacity={0.35} />
